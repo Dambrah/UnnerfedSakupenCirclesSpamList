@@ -1,37 +1,37 @@
 [
   {
     "place": 3,
-    "name": "Midnight Night",
-    "author": "Myszon12",
-    "id": "141722650",
-    "chance": "1/10^10^10",
+    "name": "...",
+    "author": "...",
+    "id": "...",
+    "chance": "Verified by ...",
     "youtube": "JVz5peyIRZg",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
-    "wrName": "Myszon12 100%",
+    "wrName": "Verification",
     "wrLink": "https://youtube.com/watch?v=example"
   },
 
   {
     "place": 1,
-    "name": "No Time",
-    "author": "Myszon12",
-    "id": "141722651",
-    "chance": "1/10^9",
+    "name": "...",
+    "author": "...",
+    "id": "...",
+    "chance": "Verified by ...",
     "youtube": "abcd1234",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
-    "wrName": "Nobody 98%",
+    "wrName": "Verification",
     "wrLink": "https://youtube.com/watch?v=example2"
   },
 
   {
     "place": 2,
-    "name": "checking",
-    "author": "Myszon12",
-    "id": "141722652",
-    "chance": "1/10^8",
+    "name": "...",
+    "author": "...",
+    "id": "...",
+    "chance": "Verified by ...",
     "youtube": "abcd1234",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
-    "wrName": "Nobody 98%",
+    "wrName": "Verification",
     "wrLink": "https://youtube.com/watch?v=example2"
   }
 ]
