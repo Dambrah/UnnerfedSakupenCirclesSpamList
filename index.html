@@ -93,7 +93,7 @@ body{
     width:65%;
     height:100%;
     position: relative;
-    cursor: pointer; /* Wskazuje, że można kliknąć */
+    cursor: pointer;
     background: #000;
 }
 
@@ -122,22 +122,21 @@ body{
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    pointer-events: none; /* Kliknięcia "przechodzą" do rodzica (.right) */
+    pointer-events: none;
     border: 2px solid white;
 }
 
-/* Trójkąt w przycisku play */
 .play-button::after {
     content: "";
     display: block;
     border-style: solid;
     border-width: 12px 0 12px 20px;
     border-color: transparent transparent transparent white;
-    margin-left: 6px; /* Optyczne wyśrodkowanie */
+    margin-left: 6px;
 }
 
 .right:hover .play-button {
-    background-color: #ff0000; /* Kolor YouTube po najechaniu */
+    background-color: #ff0000;
     border-color: #ff0000;
     transform: translate(-50%, -50%) scale(1.1);
 }
@@ -145,9 +144,10 @@ body{
 
 /* TEXTS INSIDE BLACK PANEL */
 .place {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 800;
     color: white;
+    margin-bottom: 4px;
 }
 
 .verifier {
@@ -157,14 +157,7 @@ body{
     color: white;
     opacity: 0.8;
     font-weight: 700;
-    margin-top: 2px;
     margin-bottom: 8px;
-}
-
-.title{
-    font-size:18px;
-    font-weight:800;
-    margin-bottom: 4px;
 }
 
 .sub{
@@ -235,11 +228,7 @@ body{
     }
 
     .place {
-        font-size: 20px;
-    }
-
-    .title{
-        font-size:15px;
+        font-size: 18px;
     }
     
     .player-name {
@@ -261,7 +250,6 @@ body{
 
 .place,
 .verifier,
-.title,
 .sub,
 .player-name,
 .player-points,
@@ -291,7 +279,6 @@ body{
 
 <script>
 
-// Selektory widoków i przycisków
 const btnLevels = document.getElementById("btn-levels");
 const btnLeaderboard = document.getElementById("btn-leaderboard");
 const levelsContainer = document.getElementById("levels-container");
@@ -312,11 +299,10 @@ fetch("levels.json")
         const left = document.createElement("div");
         left.className = "left";
         
-        // Struktura: Miejsce -> Weryfikator (pobierane z JSON) -> Nazwa -> Autor i ID
+        // Name and place are now combined into one line
         left.innerHTML = `
-            <div class="place">#${l.place}</div>
+            <div class="place">#${l.place} (${l.name})</div>
             <div class="verifier">Verified by: ${l.verifier}</div>
-            <div class="title">${l.name}</div>
             <div class="sub">by ${l.author}<br>id: ${l.id}</div>
         `;
 
@@ -324,13 +310,11 @@ fetch("levels.json")
         const right = document.createElement("div");
         right.className = "right";
 
-        // Dodajemy miniaturkę i ikonę przycisku play
         right.innerHTML = `
             <img src="https://img.youtube.com/vi/${l.youtube}/hqdefault.jpg" loading="lazy" alt="Miniaturka Youtube">
             <div class="play-button"></div>
         `;
 
-        // Po kliknięciu podmieniamy zawartość sekcji na interaktywny iframe
         right.addEventListener("click", () => {
             right.innerHTML = `
                 <iframe 
@@ -345,7 +329,6 @@ fetch("levels.json")
             `;
         });
 
-        // Składanie karty w całość
         card.appendChild(left);
         card.appendChild(right);
 
