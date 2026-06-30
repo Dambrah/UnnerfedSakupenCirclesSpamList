@@ -111,7 +111,7 @@ body{
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: white; /* Usunięto złoty akcent */
+    color: white;
     opacity: 0.8;
     font-weight: 700;
     margin-top: 2px;
@@ -128,33 +128,6 @@ body{
     font-size:12px;
     opacity:0.8;
     line-height:1.3;
-}
-
-/* CHANCE */
-.chance{
-    position:absolute;
-    top:10px;
-    right:10px;
-    font-weight:800;
-    z-index: 3;
-}
-
-/* WR */
-.wr{
-    position:absolute;
-    bottom:10px;
-    right:10px;
-    z-index: 3;
-
-    padding:5px 10px;
-    border-radius:12px;
-
-    background:rgba(255,255,255,0.15);
-    border:1px solid rgba(255,255,255,0.5);
-
-    font-size:12px;
-    text-decoration:none;
-    color:white;
 }
 
 /* LEADERBOARD ELEMENT STYLES */
@@ -247,8 +220,6 @@ body{
 .verifier,
 .title,
 .sub,
-.chance,
-.wr,
 .player-name,
 .player-points,
 .beaten-title,
@@ -316,23 +287,9 @@ fetch("levels.json")
 
         right.appendChild(img);
 
-        /* CHANCE */
-        const chance = document.createElement("div");
-        chance.className = "chance";
-        chance.textContent = l.chance;
-
-        /* WR */
-        const wr = document.createElement("a");
-        wr.className = "wr";
-        wr.href = l.wrLink;
-        wr.target = "_blank";
-        wr.textContent = l.wrName;
-
         // Składanie karty w całość
         card.appendChild(left);
         card.appendChild(right);
-        card.appendChild(chance);
-        card.appendChild(wr);
 
         levelsContainer.appendChild(card);
     });
