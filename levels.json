@@ -1,14 +1,15 @@
+```json
 [
   {
     "place": 1,
     "name": "USKCS nerf",
     "author": "shafikdabest",
+    "verifier": "shafikdabest",
     "id": "143809209",
-    "chance": "Verified by shafikdabest",
-    "youtube": "https://youtu.be/4AzTdom4Bcs?si=SQguTQcoXeatJvHB",
+    "youtube": "4AzTdom4Bcs",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
     "wrName": "Verification video",
-    "wrLink": "https://youtu.be/4AzTdom4Bcs?si=SQguTQcoXeatJvHB",
+    "wrLink": "https://youtu.be/4AzTdom4Bcs",
     "points": 0,
     "victors": []
   },
@@ -16,8 +17,8 @@
     "place": 2,
     "name": "...",
     "author": "...",
+    "verifier": "...",
     "id": "...",
-    "chance": "Verified by ...",
     "youtube": "abcd1234",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
     "wrName": "Verification video",
@@ -29,8 +30,8 @@
     "place": 3,
     "name": "...",
     "author": "...",
+    "verifier": "...",
     "id": "...",
-    "chance": "Verified by ...",
     "youtube": "abcd1234",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
     "wrName": "Verification video",
@@ -39,3 +40,4 @@
     "victors": []
   }
 ]
+```
