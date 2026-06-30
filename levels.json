@@ -1,17 +1,5 @@
 [
   {
-    "place": 3,
-    "name": "...",
-    "author": "...",
-    "id": "...",
-    "chance": "Verified by ...",
-    "youtube": "abcd1234",
-    "gif": "https://media0.giphy.com/media/.../giphy.gif",
-    "wrName": "Verification video",
-    "wrLink": "https://youtube.com/watch?v=example"
-  },
-
-  {
     "place": 1,
     "name": "...",
     "author": "...",
@@ -20,18 +8,34 @@
     "youtube": "abcd1234",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
     "wrName": "Verification video",
-    "wrLink": "https://youtube.com/watch?v=example2"
+    "wrLink": "https://youtube.com/watch?v=example2",
+    "points": 230,
+    "victors": ["test2", "test1"]
   },
-
   {
     "place": 2,
-    "name": "...",
+    "name": "Teeth",
     "author": "...",
     "id": "...",
     "chance": "Verified by ...",
     "youtube": "abcd1234",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
     "wrName": "Verification video",
-    "wrLink": "https://youtube.com/watch?v=example2"
+    "wrLink": "https://youtube.com/watch?v=example2",
+    "points": 10,
+    "victors": ["test3"]
+  },
+  {
+    "place": 3,
+    "name": "Inny Poziom",
+    "author": "...",
+    "id": "...",
+    "chance": "Verified by ...",
+    "youtube": "abcd1234",
+    "gif": "https://media0.giphy.com/media/.../giphy.gif",
+    "wrName": "Verification video",
+    "wrLink": "https://youtube.com/watch?v=example",
+    "points": 50,
+    "victors": ["test3"]
   }
 ]
