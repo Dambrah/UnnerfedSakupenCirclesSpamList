@@ -269,15 +269,15 @@ fetch("levels.json")
         const left = document.createElement("div");
         left.className = "left";
         
-        // Struktura: Miejsce -> Weryfikator -> Nazwa -> Autor i ID
+        // Struktura: Miejsce -> Weryfikator (pobierane z JSON) -> Nazwa -> Autor i ID
         left.innerHTML = `
             <div class="place">#${l.place}</div>
-            <div class="verifier">Verified by: ${l.verifier || 'Unknown'}</div>
+            <div class="verifier">Verified by: ${l.verifier}</div>
             <div class="title">${l.name}</div>
             <div class="sub">by ${l.author}<br>id: ${l.id}</div>
         `;
 
-        /* RIGHT PANEL (YOUTUBE THUMBNAIL INSTEAD OF GIF) */
+        /* RIGHT PANEL (YOUTUBE THUMBNAIL) */
         const right = document.createElement("div");
         right.className = "right";
 
