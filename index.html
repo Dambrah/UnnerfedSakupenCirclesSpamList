@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -269,7 +269,7 @@ body{
 
 <div class="tabs-container">
     <div class="tabs">
-        <button class="tab-btn active" id="btn-levels">Poziomy</button>
+        <button class="tab-btn active" id="btn-levels">Levels</button>
         <button class="tab-btn" id="btn-leaderboard">Leaderboard</button>
     </div>
 </div>
@@ -288,7 +288,7 @@ fetch("levels.json")
 .then(r => r.json())
 .then(data => {
 
-    // 1. RENDEROWANIE POZIOMÓW
+    // 1. RENDER LEVELS
     data.sort((a,b) => a.place - b.place);
 
     data.forEach(l => {
@@ -306,12 +306,12 @@ fetch("levels.json")
             <div class="sub">by ${l.author}<br>id: ${l.id}</div>
         `;
 
-        /* RIGHT PANEL (YOUTUBE THUMBNAIL Z PRZYCISKIEM PLAY) */
+        /* RIGHT PANEL (YOUTUBE THUMBNAIL WITH PLAY BUTTON) */
         const right = document.createElement("div");
         right.className = "right";
 
         right.innerHTML = `
-            <img src="https://img.youtube.com/vi/${l.youtube}/hqdefault.jpg" loading="lazy" alt="Miniaturka Youtube">
+            <img src="https://img.youtube.com/vi/${l.youtube}/hqdefault.jpg" loading="lazy" alt="YouTube Thumbnail">
             <div class="play-button"></div>
         `;
 
@@ -335,7 +335,7 @@ fetch("levels.json")
         levelsContainer.appendChild(card);
     });
 
-    // 2. LOGIKA I RENDEROWANIE LEADERBOARDU
+    // 2. LEADERBOARD LOGIC AND RENDERING
     const leaderboardData = {};
 
     data.forEach(l => {
@@ -369,9 +369,9 @@ fetch("levels.json")
         lCard.innerHTML = `
             <div class="leaderboard-header">
                 <div class="player-name">#${index + 1} ${p.name}</div>
-                <div class="player-points">${p.points} pkt</div>
+                <div class="player-points">${p.points} pts</div>
             </div>
-            <div class="beaten-title">Ukończone poziomy:</div>
+            <div class="beaten-title">Completed levels:</div>
             <div class="beaten-list">${p.beaten.join(", ")}</div>
         `;
 
@@ -380,7 +380,7 @@ fetch("levels.json")
 
 });
 
-// 3. OBSŁUGA PRZEŁĄCZANIA ZAKŁADEK (TABS)
+// 3. HANDLE TAB SWITCHING
 btnLevels.addEventListener("click", () => {
     btnLevels.classList.add("active");
     btnLeaderboard.classList.remove("active");
