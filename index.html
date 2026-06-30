@@ -15,17 +15,23 @@ body {
     overflow-x: hidden;
 }
 
-/* NAVIGATION BAR */
+/* ========================= */
+/* 🔥 PREMIUM NAVBAR */
+/* ========================= */
 .navbar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 15px max(5vw, 20px);
-    background: #0a0a0a;
-    border-bottom: 2px solid #222;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
+    gap: 15px;
 }
 
 .nav-title {
@@ -34,28 +40,86 @@ body {
     color: white;
     text-transform: uppercase;
     letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
+/* INTEGRATED SEARCH BAR */
+.nav-search {
+    flex-grow: 1;
+    max-width: 400px;
+    position: relative;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nav-search.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+    position: absolute; /* Prevents it from taking up space when hidden */
+}
+
+#search-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 20px 12px 45px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    border-radius: 30px; /* Sleek pill shape */
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#search-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+#search-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.3s ease;
+    pointer-events: none;
+}
+
+#search-input:focus + .search-icon {
+    color: white;
+}
+
+/* DISCORD BUTTON */
 .discord-btn {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #5865F2; /* Discord Color */
+    background: #5865F2;
     color: white;
     text-decoration: none;
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     font-weight: 700;
     font-size: 14px;
     text-transform: uppercase;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: none;
 }
 
 .discord-btn:hover {
     background: #4752C4;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+    box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
 }
 
 .discord-btn svg {
@@ -70,7 +134,6 @@ body {
     display: flex;
     justify-content: center;
     padding-top: 25px;
-    background: #000;
 }
 
 .tabs {
@@ -82,72 +145,25 @@ body {
 .tab-btn {
     padding: 12px 24px;
     background: #0a0a0a;
-    border: 2px solid white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
     color: white;
     border-radius: 12px;
     cursor: pointer;
     font-family: 'Rubik', sans-serif;
     font-weight: 800;
     font-size: 16px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .tab-btn.active {
     background: white;
     color: black;
-}
-
-/* SEARCH BAR */
-.search-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px 0 5px 0;
-    background: #000;
-}
-
-.search-wrapper {
-    position: relative;
-    width: min(900px, 95vw);
-}
-
-.search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    color: #888;
-    transition: color 0.3s ease;
-}
-
-#search-input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 14px 20px 14px 45px;
-    font-family: 'Rubik', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    background: #0a0a0a;
-    border: 2px solid #333;
-    color: white;
-    border-radius: 12px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-#search-input::placeholder {
-    color: #666;
-}
-
-#search-input:focus {
     border-color: white;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
-}
-
-#search-input:focus + .search-icon {
-    color: white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 /* CONTAINER */
@@ -168,23 +184,30 @@ body {
     display: flex;
     border-radius: 18px;
     overflow: hidden;
-    border: 2px solid white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     background: #0a0a0a;
     position: relative;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* LEFT PANEL (BLACK SCREEN WITH ALL TEXT INFO) */
 .left {
     width: 35%;
     height: 100%;
-    background: #000000;
+    background: linear-gradient(135deg, #050505 0%, #111 100%);
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Spreads out top text and bottom points */
-    padding: 15px;
+    justify-content: space-between;
+    padding: 20px;
     box-sizing: border-box;
     z-index: 2;
+    border-right: 2px solid rgba(255, 255, 255, 0.05);
 }
 
 /* RIGHT PANEL (YOUTUBE VIDEO THUMBNAIL) */
@@ -204,7 +227,7 @@ body {
 }
 
 .right:hover img {
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 /* PLAY BUTTON OVERLAY */
@@ -215,14 +238,13 @@ body {
     transform: translate(-50%, -50%);
     width: 60px;
     height: 60px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(255, 0, 0, 0.8);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     pointer-events: none;
-    border: 2px solid white;
 }
 
 .play-button::after {
@@ -236,13 +258,13 @@ body {
 
 .right:hover .play-button {
     background-color: #ff0000;
-    border-color: #ff0000;
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
 }
 
 /* TEXTS INSIDE BLACK PANEL */
 .place {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 800;
     color: white;
     margin-bottom: 4px;
@@ -252,43 +274,49 @@ body {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: white;
-    opacity: 0.8;
+    color: #aaa;
     font-weight: 700;
     margin-bottom: 8px;
 }
 
 .sub {
     font-size: 12px;
-    opacity: 0.8;
-    line-height: 1.3;
+    color: #888;
+    line-height: 1.4;
 }
 
 .level-points {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 800;
     color: #ffcf40;
-    padding: 6px 12px;
-    border: 2px solid #ffcf40;
+    padding: 6px 14px;
     border-radius: 8px;
     display: inline-block;
     width: max-content;
     text-transform: uppercase;
     letter-spacing: 1px;
-    background: rgba(255, 207, 64, 0.1);
+    background: rgba(255, 207, 64, 0.15);
+    border: 1px solid rgba(255, 207, 64, 0.3);
+    box-shadow: 0 0 10px rgba(255, 207, 64, 0.1);
 }
 
 /* LEADERBOARD ELEMENT STYLES */
 .leaderboard-card {
     width: min(900px, 95vw);
-    background: #0a0a0a;
-    border: 2px solid white;
+    background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 18px;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: transform 0.2s ease;
+}
+
+.leaderboard-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .leaderboard-header {
@@ -306,34 +334,47 @@ body {
     font-size: 20px;
     font-weight: 800;
     color: #ffcf40;
+    text-shadow: 0 0 10px rgba(255, 207, 64, 0.3);
 }
 
 .beaten-title {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    opacity: 0.5;
+    color: #888;
     margin-top: 5px;
 }
 
 .beaten-list {
     font-size: 14px;
-    opacity: 0.9;
-    line-height: 1.4;
+    color: #ccc;
+    line-height: 1.5;
 }
 
 /* UTILITY CLASSES */
-.hidden {
+.hidden-section {
     display: none !important;
 }
 
-/* 📱 MOBILE FIX */
+/* 📱 MOBILE RESPONSIVENESS */
 @media (max-width: 768px){
+    .navbar {
+        flex-direction: row;
+    }
+    .nav-search {
+        order: 3;
+        max-width: 100%;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .nav-search.hidden {
+        display: none; /* Fully remove it on mobile so it doesn't leave an empty row */
+    }
     .card {
         height: 200px;
     }
     .nav-title {
-        font-size: 18px;
+        font-size: 20px;
     }
 }
 
@@ -344,37 +385,27 @@ body {
     .place { font-size: 18px; }
     .player-name { font-size: 18px; }
     .player-points { font-size: 16px; }
-    .left { padding: 10px; }
+    .left { padding: 12px; }
     .level-points {
-        font-size: 11px;
-        padding: 4px 8px;
+        font-size: 12px;
+        padding: 4px 10px;
     }
 }
-
-/* ========================= */
-/* 🔥 TEXT STROKE (OUTLINE) */
-/* ========================= */
-.place,
-.verifier,
-.sub,
-.player-name,
-.player-points,
-.beaten-title,
-.beaten-list,
-.level-points {
-    text-shadow:
-        -1px -1px 0 #000,
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000;
-}
-
 </style>
 </head>
 <body>
 
 <nav class="navbar">
     <div class="nav-title">Demon List</div>
+    
+    <div class="nav-search" id="nav-search">
+        <input type="text" id="search-input" placeholder="Search level by name...">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+    </div>
+
     <a href="https://discord.gg/vAr7Cyv83F" target="_blank" class="discord-btn">
         <svg viewBox="0 0 127.14 96.36">
             <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c0,0,.04-.06.05-.09h0c2.69-27.42-2.73-51.49-18.95-72.06ZM42.63,65.22C38,65.22,34.15,61,34.15,55.9S37.9,46.58,42.63,46.58c4.76,0,8.56,4.31,8.48,9.32C51.11,61,47.41,65.22,42.63,65.22Zm41.88,0c-4.73,0-8.52-4.22-8.52-9.32s3.73-9.32,8.52-9.32c4.76,0,8.56,4.31,8.48,9.32C93,61,89.28,65.22,84.51,65.22Z"/>
@@ -390,44 +421,34 @@ body {
     </div>
 </div>
 
-<div class="search-container" id="search-container">
-    <div class="search-wrapper">
-        <input type="text" id="search-input" placeholder="Search level by name...">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-    </div>
-</div>
-
 <div class="container" id="levels-container"></div>
-<div class="container hidden" id="leaderboard-container"></div>
+<div class="container hidden-section" id="leaderboard-container"></div>
 
 <script>
 const btnLevels = document.getElementById("btn-levels");
 const btnLeaderboard = document.getElementById("btn-leaderboard");
 const levelsContainer = document.getElementById("levels-container");
 const leaderboardContainer = document.getElementById("leaderboard-container");
-const searchContainer = document.getElementById("search-container");
+const navSearch = document.getElementById("nav-search");
 const searchInput = document.getElementById("search-input");
 
 fetch("levels.json")
 .then(r => r.json())
 .then(data => {
 
-    const levelCardsElements = []; // Store DOM elements for search functionality
+    const levelCardsElements = []; 
 
     // 1. RENDER LEVELS
     data.sort((a,b) => a.place - b.place);
 
     data.forEach(l => {
-        const pts = Number(l.points) || 0;
+        // Explicitly reading EXACTLY from the JSON's "points" property. No randomness!
+        const exactPoints = l.points !== undefined ? l.points : 0;
 
         const card = document.createElement("div");
         card.className = "card";
-        card.dataset.name = l.name.toLowerCase(); // For easy search filtering
+        card.dataset.name = l.name.toLowerCase(); 
 
-        /* LEFT PANEL (BLACK SCREEN WITH ALL TEXT INFO) */
         const left = document.createElement("div");
         left.className = "left";
         
@@ -437,10 +458,9 @@ fetch("levels.json")
                 <div class="verifier">Verified by: ${l.verifier}</div>
                 <div class="sub">by ${l.author}<br>id: ${l.id}</div>
             </div>
-            <div class="level-points">+${pts} PTS</div>
+            <div class="level-points">+${exactPoints} PTS</div>
         `;
 
-        /* RIGHT PANEL (YOUTUBE THUMBNAIL WITH PLAY BUTTON) */
         const right = document.createElement("div");
         right.className = "right";
 
@@ -467,7 +487,7 @@ fetch("levels.json")
         card.appendChild(right);
 
         levelsContainer.appendChild(card);
-        levelCardsElements.push(card); // Save for search filter
+        levelCardsElements.push(card); 
     });
 
     // 2. SEARCH IMPLEMENTATION
@@ -486,7 +506,7 @@ fetch("levels.json")
     const leaderboardData = {};
 
     data.forEach(l => {
-        const pts = Number(l.points) || 0;
+        const exactPoints = l.points !== undefined ? Number(l.points) : 0;
         
         if (l.victors && Array.isArray(l.victors)) {
             l.victors.forEach(player => {
@@ -497,7 +517,7 @@ fetch("levels.json")
                         beaten: []
                     };
                 }
-                leaderboardData[trimmedPlayer].points += pts;
+                leaderboardData[trimmedPlayer].points += exactPoints;
                 leaderboardData[trimmedPlayer].beaten.push(l.name);
             });
         }
@@ -527,27 +547,27 @@ fetch("levels.json")
 
 });
 
-// 4. HANDLE TAB SWITCHING
+// 4. HANDLE TAB SWITCHING (Hide search bar smoothly on Leaderboard)
 btnLevels.addEventListener("click", () => {
     btnLevels.classList.add("active");
     btnLeaderboard.classList.remove("active");
     
-    levelsContainer.classList.remove("hidden");
-    leaderboardContainer.classList.add("hidden");
+    levelsContainer.classList.remove("hidden-section");
+    leaderboardContainer.classList.add("hidden-section");
     
-    // Show search bar when on Levels tab
-    searchContainer.classList.remove("hidden");
+    navSearch.classList.remove("hidden");
+    searchInput.value = ""; // Clear search when returning
+    searchInput.dispatchEvent(new Event('input')); // Reset list
 });
 
 btnLeaderboard.addEventListener("click", () => {
     btnLeaderboard.classList.add("active");
     btnLevels.classList.remove("active");
     
-    leaderboardContainer.classList.remove("hidden");
-    levelsContainer.classList.add("hidden");
+    leaderboardContainer.classList.remove("hidden-section");
+    levelsContainer.classList.add("hidden-section");
     
-    // Hide search bar when on Leaderboard tab
-    searchContainer.classList.add("hidden");
+    navSearch.classList.add("hidden");
 });
 </script>
 </body>
