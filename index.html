@@ -16,6 +16,39 @@ body{
     overflow-x:hidden;
 }
 
+/* NAVIGATION TABS */
+.tabs-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    background: #000;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    width: min(900px, 95vw);
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    background: #0a0a0a;
+    border: 2px solid white;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    background: white;
+    color: black;
+}
+
 /* CONTAINER */
 .container{
     width:100%;
@@ -24,9 +57,10 @@ body{
     align-items:center;
     padding:20px;
     gap:15px;
+    box-sizing: border-box;
 }
 
-/* CARD */
+/* CARD (LEVELS) */
 .card{
     width: min(900px, 95vw);
     height: 220px;
@@ -109,6 +143,55 @@ body{
     color:white;
 }
 
+/* LEADERBOARD ELEMENT STYLES */
+.leaderboard-card {
+    width: min(900px, 95vw);
+    background: #0a0a0a;
+    border: 2px solid white;
+    border-radius: 18px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.leaderboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-name {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.player-points {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffcf40; /* Złoty akcent na punkty */
+}
+
+.beaten-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.5;
+    margin-top: 5px;
+}
+
+.beaten-list {
+    font-size: 14px;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+/* UTILITY CLASSES */
+.hidden {
+    display: none !important;
+}
+
 /* 📱 MOBILE FIX */
 @media (max-width: 768px){
     .card{
@@ -124,6 +207,14 @@ body{
     .title{
         font-size:16px;
     }
+    
+    .player-name {
+        font-size: 18px;
+    }
+    
+    .player-points {
+        font-size: 16px;
+    }
 }
 
 /* ========================= */
@@ -133,7 +224,11 @@ body{
 .title,
 .sub,
 .chance,
-.wr{
+.wr,
+.player-name,
+.player-points,
+.beaten-title,
+.beaten-list {
     text-shadow:
         -1px -1px 0 #000,
          1px -1px 0 #000,
@@ -146,20 +241,34 @@ body{
 
 <body>
 
-<div class="container" id="container"></div>
+<!-- TABS CONTROL -->
+<div class="tabs-container">
+    <div class="tabs">
+        <button class="tab-btn active" id="btn-levels">Poziomy</button>
+        <button class="tab-btn" id="btn-leaderboard">Leaderboard</button>
+    </div>
+</div>
+
+<!-- VIEWS -->
+<div class="container" id="levels-container"></div>
+<div class="container hidden" id="leaderboard-container"></div>
 
 <script>
+
+// Selektory widoków i przycisków
+const btnLevels = document.getElementById("btn-levels");
+const btnLeaderboard = document.getElementById("btn-leaderboard");
+const levelsContainer = document.getElementById("levels-container");
+const leaderboardContainer = document.getElementById("leaderboard-container");
 
 fetch("levels.json")
 .then(r => r.json())
 .then(data => {
 
-    const container = document.getElementById("container");
-
+    // 1. RENDEROWANIE POZIOMÓW
     data.sort((a,b) => a.place - b.place);
 
     data.forEach(l => {
-
         const card = document.createElement("div");
         card.className = "card";
 
@@ -209,10 +318,72 @@ fetch("levels.json")
         card.appendChild(chance);
         card.appendChild(wr);
 
-        container.appendChild(card);
-
+        levelsContainer.appendChild(card);
     });
 
+    // 2. LOGIKA I RENDEROWANIE LEADERBOARDU
+    const leaderboardData = {};
+
+    data.forEach(l => {
+        const pts = Number(l.points) || 0;
+        
+        // Sprawdzamy czy w strukturze poziomu istnieje tablica victorów
+        if (l.victors && Array.isArray(l.victors)) {
+            l.victors.forEach(player => {
+                const trimmedPlayer = player.trim();
+                if (!leaderboardData[trimmedPlayer]) {
+                    leaderboardData[trimmedPlayer] = {
+                        points: 0,
+                        beaten: []
+                    };
+                }
+                leaderboardData[trimmedPlayer].points += pts;
+                leaderboardData[trimmedPlayer].beaten.push(l.name);
+            });
+        }
+    });
+
+    // Mapowanie obiektu na tablicę i sortowanie od największej liczby punktów
+    const sortedPlayers = Object.keys(leaderboardData).map(name => ({
+        name: name,
+        points: leaderboardData[name].points,
+        beaten: leaderboardData[name].beaten
+    })).sort((a, b) => b.points - a.points);
+
+    // Renderowanie kart graczy w Leaderboardzie
+    sortedPlayers.forEach((p, index) => {
+        const lCard = document.createElement("div");
+        lCard.className = "leaderboard-card";
+
+        lCard.innerHTML = `
+            <div class="leaderboard-header">
+                <div class="player-name">#${index + 1} ${p.name}</div>
+                <div class="player-points">${p.points} pkt</div>
+            </div>
+            <div class="beaten-title">Ukończone poziomy:</div>
+            <div class="beaten-list">${p.beaten.join(", ")}</div>
+        `;
+
+        leaderboardContainer.appendChild(lCard);
+    });
+
+});
+
+// 3. OBSŁUGA PRZEŁĄCZANIA ZAKŁADEK (TABS)
+btnLevels.addEventListener("click", () => {
+    btnLevels.classList.add("active");
+    btnLeaderboard.classList.remove("active");
+    
+    levelsContainer.classList.remove("hidden");
+    leaderboardContainer.classList.add("hidden");
+});
+
+btnLeaderboard.addEventListener("click", () => {
+    btnLeaderboard.classList.add("active");
+    btnLevels.classList.remove("active");
+    
+    leaderboardContainer.classList.remove("hidden");
+    levelsContainer.classList.add("hidden");
 });
 
 </script>
