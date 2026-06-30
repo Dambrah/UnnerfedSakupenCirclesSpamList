@@ -75,16 +75,17 @@ body{
     position:relative;
 }
 
-/* LEFT THUMBNAIL */
+/* LEFT PANEL (BLACK SCREEN WITH INFO) */
 .left{
     width:35%;
     height:100%;
-}
-
-.left img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+    background: #000000; /* Całkowicie czarny ekran zamiast wideo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    box-sizing: border-box;
+    z-index: 2;
 }
 
 /* RIGHT IMAGE */
@@ -99,23 +100,26 @@ body{
     object-fit:cover;
 }
 
-/* INFO */
-.info{
-    position:absolute;
-    top:10px;
-    left:10px;
+/* TEXTS */
+.verifier {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffcf40; /* Złoty akcent dla weryfikatora */
+    font-weight: 700;
+    margin-bottom: 4px;
 }
 
-/* TEXTS */
 .title{
     font-size:20px;
     font-weight:800;
+    margin-bottom: 6px;
 }
 
 .sub{
     font-size:12px;
     opacity:0.8;
-    line-height:1.2;
+    line-height:1.4;
 }
 
 /* CHANCE */
@@ -124,6 +128,7 @@ body{
     top:10px;
     right:10px;
     font-weight:800;
+    z-index: 3;
 }
 
 /* WR */
@@ -131,6 +136,7 @@ body{
     position:absolute;
     bottom:10px;
     right:10px;
+    z-index: 3;
 
     padding:5px 10px;
     border-radius:12px;
@@ -170,7 +176,7 @@ body{
 .player-points {
     font-size: 20px;
     font-weight: 800;
-    color: #ffcf40; /* Złoty akcent na punkty */
+    color: #ffcf40;
 }
 
 .beaten-title {
@@ -215,12 +221,17 @@ body{
     .player-points {
         font-size: 16px;
     }
+    
+    .left {
+        padding: 10px;
+    }
 }
 
 /* ========================= */
 /* 🔥 TEXT STROKE (OUTLINE) */
 /* ========================= */
 
+.verifier,
 .title,
 .sub,
 .chance,
@@ -241,7 +252,6 @@ body{
 
 <body>
 
-<!-- TABS CONTROL -->
 <div class="tabs-container">
     <div class="tabs">
         <button class="tab-btn active" id="btn-levels">Poziomy</button>
@@ -249,7 +259,6 @@ body{
     </div>
 </div>
 
-<!-- VIEWS -->
 <div class="container" id="levels-container"></div>
 <div class="container hidden" id="leaderboard-container"></div>
 
@@ -272,14 +281,16 @@ fetch("levels.json")
         const card = document.createElement("div");
         card.className = "card";
 
-        /* LEFT THUMBNAIL */
+        /* LEFT PANEL (BLACK SCREEN WITH ALL TEXT INFO) */
         const left = document.createElement("div");
         left.className = "left";
-
-        const thumb = document.createElement("img");
-        thumb.src = `https://img.youtube.com/vi/${l.youtube}/hqdefault.jpg`;
-
-        left.appendChild(thumb);
+        
+        // Generowanie struktury tekstowej (Weryfikator nad numerem #X)
+        left.innerHTML = `
+            <div class="verifier">Verified by: ${l.verifier || 'Unknown'}</div>
+            <div class="title">#${l.place} ${l.name}</div>
+            <div class="sub">by ${l.author}<br>id: ${l.id}</div>
+        `;
 
         /* RIGHT IMAGE */
         const right = document.createElement("div");
@@ -290,15 +301,6 @@ fetch("levels.json")
         img.loading = "lazy";
 
         right.appendChild(img);
-
-        /* INFO */
-        const info = document.createElement("div");
-        info.className = "info";
-
-        info.innerHTML = `
-            <div class="title">#${l.place} ${l.name}</div>
-            <div class="sub">by ${l.author}<br>id: ${l.id}</div>
-        `;
 
         /* CHANCE */
         const chance = document.createElement("div");
@@ -312,9 +314,9 @@ fetch("levels.json")
         wr.target = "_blank";
         wr.textContent = l.wrName;
 
+        // Składanie karty w całość (bez miniaturki youtube)
         card.appendChild(left);
         card.appendChild(right);
-        card.appendChild(info);
         card.appendChild(chance);
         card.appendChild(wr);
 
@@ -327,7 +329,6 @@ fetch("levels.json")
     data.forEach(l => {
         const pts = Number(l.points) || 0;
         
-        // Sprawdzamy czy w strukturze poziomu istnieje tablica victorów
         if (l.victors && Array.isArray(l.victors)) {
             l.victors.forEach(player => {
                 const trimmedPlayer = player.trim();
@@ -343,14 +344,12 @@ fetch("levels.json")
         }
     });
 
-    // Mapowanie obiektu na tablicę i sortowanie od największej liczby punktów
     const sortedPlayers = Object.keys(leaderboardData).map(name => ({
         name: name,
         points: leaderboardData[name].points,
         beaten: leaderboardData[name].beaten
     })).sort((a, b) => b.points - a.points);
 
-    // Renderowanie kart graczy w Leaderboardzie
     sortedPlayers.forEach((p, index) => {
         const lCard = document.createElement("div");
         lCard.className = "leaderboard-card";
