@@ -1,6 +1,6 @@
 [
   {
-    "place": 1,
+    "place": 2,
     "name": "USKCS nerf",
     "author": "shafikdabest",
     "verifier": "shafikdabest",
@@ -13,11 +13,11 @@
     "victors": ["shafikdabest"]
   },
   {
-    "place": 2,
-    "name": "...",
-    "author": "...",
-    "verifier": "...",
-    "id": "...",
+    "place": 1,
+    "name": "USKC spam retray",
+    "author": "Dambrah",
+    "verifier": "WR: 6% by shafikdabest",
+    "id": "143625262",
     "youtube": "abcd1234",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
     "wrName": "Verification video",
