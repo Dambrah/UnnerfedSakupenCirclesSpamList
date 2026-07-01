@@ -55,7 +55,7 @@ body {
     opacity: 0;
     pointer-events: none;
     transform: scale(0.95);
-    position: absolute; /* Prevents it from taking up space when hidden */
+    position: absolute; 
 }
 
 #search-input {
@@ -68,7 +68,7 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: white;
-    border-radius: 30px; /* Sleek pill shape */
+    border-radius: 30px; 
     outline: none;
     transition: all 0.3s ease;
 }
@@ -368,7 +368,7 @@ body {
         margin-top: 10px;
     }
     .nav-search.hidden {
-        display: none; /* Fully remove it on mobile so it doesn't leave an empty row */
+        display: none; 
     }
     .card {
         height: 200px;
@@ -432,17 +432,18 @@ const leaderboardContainer = document.getElementById("leaderboard-container");
 const navSearch = document.getElementById("nav-search");
 const searchInput = document.getElementById("search-input");
 
+// We'll store both sets of cards so we can filter them dynamically
+const levelCardsElements = []; 
+const leaderboardCardsElements = []; 
+
 fetch("levels.json")
 .then(r => r.json())
 .then(data => {
-
-    const levelCardsElements = []; 
 
     // 1. RENDER LEVELS
     data.sort((a,b) => a.place - b.place);
 
     data.forEach(l => {
-        // Explicitly reading EXACTLY from the JSON's "points" property. No randomness!
         const exactPoints = l.points !== undefined ? l.points : 0;
 
         const card = document.createElement("div");
@@ -490,19 +491,7 @@ fetch("levels.json")
         levelCardsElements.push(card); 
     });
 
-    // 2. SEARCH IMPLEMENTATION
-    searchInput.addEventListener("input", (e) => {
-        const query = e.target.value.toLowerCase();
-        levelCardsElements.forEach(card => {
-            if (card.dataset.name.includes(query)) {
-                card.style.display = "flex";
-            } else {
-                card.style.display = "none";
-            }
-        });
-    });
-
-    // 3. LEADERBOARD LOGIC AND RENDERING
+    // 2. LEADERBOARD LOGIC AND RENDERING
     const leaderboardData = {};
 
     data.forEach(l => {
@@ -532,6 +521,8 @@ fetch("levels.json")
     sortedPlayers.forEach((p, index) => {
         const lCard = document.createElement("div");
         lCard.className = "leaderboard-card";
+        // Store player name in dataset for filtering later
+        lCard.dataset.player = p.name.toLowerCase(); 
 
         lCard.innerHTML = `
             <div class="leaderboard-header">
@@ -543,11 +534,38 @@ fetch("levels.json")
         `;
 
         leaderboardContainer.appendChild(lCard);
+        leaderboardCardsElements.push(lCard);
+    });
+
+    // 3. UNIVERSAL SEARCH IMPLEMENTATION
+    searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase();
+        
+        // If we are on the Levels tab
+        if (btnLevels.classList.contains("active")) {
+            levelCardsElements.forEach(card => {
+                if (card.dataset.name.includes(query)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        } 
+        // If we are on the Leaderboard tab
+        else {
+            leaderboardCardsElements.forEach(card => {
+                if (card.dataset.player.includes(query)) {
+                    card.style.display = "flex"; // leaderboard cards use flex
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
     });
 
 });
 
-// 4. HANDLE TAB SWITCHING (Hide search bar smoothly on Leaderboard)
+// 4. HANDLE TAB SWITCHING (Changes Context of Search Bar)
 btnLevels.addEventListener("click", () => {
     btnLevels.classList.add("active");
     btnLeaderboard.classList.remove("active");
@@ -555,9 +573,10 @@ btnLevels.addEventListener("click", () => {
     levelsContainer.classList.remove("hidden-section");
     leaderboardContainer.classList.add("hidden-section");
     
-    navSearch.classList.remove("hidden");
-    searchInput.value = ""; // Clear search when returning
-    searchInput.dispatchEvent(new Event('input')); // Reset list
+    // Update Search Context to Levels
+    searchInput.placeholder = "Search level by name...";
+    searchInput.value = ""; 
+    searchInput.dispatchEvent(new Event('input')); 
 });
 
 btnLeaderboard.addEventListener("click", () => {
@@ -567,7 +586,10 @@ btnLeaderboard.addEventListener("click", () => {
     leaderboardContainer.classList.remove("hidden-section");
     levelsContainer.classList.add("hidden-section");
     
-    navSearch.classList.add("hidden");
+    // Update Search Context to Players
+    searchInput.placeholder = "Search player by name...";
+    searchInput.value = ""; 
+    searchInput.dispatchEvent(new Event('input')); 
 });
 </script>
 </body>
