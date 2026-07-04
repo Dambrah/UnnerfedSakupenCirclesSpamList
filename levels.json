@@ -26,6 +26,19 @@
     "victors": []
   },
   {
+    "place": 4,
+    "name": "...",
+    "author": "...",
+    "verifier": "...",
+    "id": "...",
+    "youtube": "abcd1234",
+    "gif": "https://media0.giphy.com/media/.../giphy.gif",
+    "wrName": "Verification video",
+    "wrLink": "https://youtube.com/watch?v=example2",
+    "points": 0.5,
+    "victors": []
+  },
+  {
     "place": 1,
     "name": "challenge for ufwm8",
     "author": "MM900",
