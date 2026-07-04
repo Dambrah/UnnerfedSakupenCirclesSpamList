@@ -1,6 +1,6 @@
 [
   {
-    "place": 1,
+    "place": 2,
     "name": "meowpal chal easy",
     "author": "cookie498",
     "verifier": "ad3usgmd",
@@ -13,7 +13,7 @@
     "victors": [""]
   },
   {
-    "place": 2,
+    "place": 3,
     "name": "USKC spam retray",
     "author": "Dambrah",
     "verifier": "WR: 6% by shafikdabest",
@@ -26,16 +26,16 @@
     "victors": []
   },
   {
-    "place": 3,
-    "name": "...",
-    "author": "...",
-    "verifier": "...",
-    "id": "...",
-    "youtube": "abcd1234",
+    "place": 1,
+    "name": "challenge for ufwm8",
+    "author": "MM900",
+    "verifier": "ad3usgmd",
+    "id": "115477905",
+    "youtube": "ZNmKP4b7c40",
     "gif": "https://media0.giphy.com/media/.../giphy.gif",
     "wrName": "Verification video",
-    "wrLink": "https://youtube.com/watch?v=example",
-    "points": 0,
+    "wrLink": "",
+    "points": 1.3,
     "victors": []
   }
 ]
