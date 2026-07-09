@@ -432,9 +432,52 @@ const leaderboardContainer = document.getElementById("leaderboard-container");
 const navSearch = document.getElementById("nav-search");
 const searchInput = document.getElementById("search-input");
 
-// We'll store both sets of cards so we can filter them dynamically
 const levelCardsElements = []; 
 const leaderboardCardsElements = []; 
+
+// 🛠️ HELPER FUNCTION: Extracts clean Video ID and converts timestamps to pure seconds
+function parseYoutube(youtubeInput) {
+    if (!youtubeInput) return { id: "", start: 0 };
+    
+    let videoId = youtubeInput.trim();
+    let startSeconds = 0;
+
+    // Safety fallback: convert malformed query syntax (like ID&t=20s) to proper syntax
+    if (!videoId.includes('?') && videoId.includes('&')) {
+        videoId = videoId.replace('&', '?');
+    }
+
+    try {
+        const urlStr = videoId.startsWith('http') ? videoId : 'https://youtube.com/' + videoId;
+        const url = new URL(urlStr);
+        
+        if (url.hostname.includes('youtu.be')) {
+            videoId = url.pathname.slice(1);
+        } else if (url.searchParams.has('v')) {
+            videoId = url.searchParams.get('v');
+        } else {
+            videoId = url.pathname.split('/').pop();
+        }
+
+        const t = url.searchParams.get('t') || url.searchParams.get('start');
+        if (t) {
+            if (/^\d+s?$/.test(t)) {
+                startSeconds = parseInt(t, 10);
+            } else {
+                const hMatch = t.match(/(\d+)h/);
+                const mMatch = t.match(/(\d+)m/);
+                const sMatch = t.match(/(\d+)s/);
+                if (hMatch) startSeconds += parseInt(hMatch[1], 10) * 3600;
+                if (mMatch) startSeconds += parseInt(mMatch[1], 10) * 60;
+                if (sMatch) startSeconds += parseInt(sMatch[1], 10);
+            }
+        }
+    } catch (e) {
+        // Fallback option if URL parse breaks completely
+    }
+
+    return { id: videoId, start: startSeconds };
+}
 
 fetch("levels.json")
 .then(r => r.json())
@@ -445,6 +488,9 @@ fetch("levels.json")
 
     data.forEach(l => {
         const exactPoints = l.points !== undefined ? l.points : 0;
+        
+        // Parse the video entry for clean ID and potential start timestamps
+        const yt = parseYoutube(l.youtube);
 
         const card = document.createElement("div");
         card.className = "card";
@@ -465,17 +511,24 @@ fetch("levels.json")
         const right = document.createElement("div");
         right.className = "right";
 
+        // Uses clean ID to avoid broken imagery parameters
         right.innerHTML = `
-            <img src="https://img.youtube.com/vi/${l.youtube}/hqdefault.jpg" loading="lazy" alt="YouTube Thumbnail">
+            <img src="https://img.youtube.com/vi/${yt.id}/hqdefault.jpg" loading="lazy" alt="YouTube Thumbnail">
             <div class="play-button"></div>
         `;
 
         right.addEventListener("click", () => {
+            // Build the embedded player URL dynamically
+            let embedUrl = `https://www.youtube.com/embed/${yt.id}?autoplay=1`;
+            if (yt.start > 0) {
+                embedUrl += `&start=${yt.start}`;
+            }
+
             right.innerHTML = `
                 <iframe 
                     width="100%" 
                     height="100%" 
-                    src="https://www.youtube.com/embed/${l.youtube}?autoplay=1" 
+                    src="${embedUrl}" 
                     title="YouTube video player" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -521,7 +574,6 @@ fetch("levels.json")
     sortedPlayers.forEach((p, index) => {
         const lCard = document.createElement("div");
         lCard.className = "leaderboard-card";
-        // Store player name in dataset for filtering later
         lCard.dataset.player = p.name.toLowerCase(); 
 
         lCard.innerHTML = `
@@ -541,7 +593,6 @@ fetch("levels.json")
     searchInput.addEventListener("input", (e) => {
         const query = e.target.value.toLowerCase();
         
-        // If we are on the Levels tab
         if (btnLevels.classList.contains("active")) {
             levelCardsElements.forEach(card => {
                 if (card.dataset.name.includes(query)) {
@@ -551,11 +602,10 @@ fetch("levels.json")
                 }
             });
         } 
-        // If we are on the Leaderboard tab
         else {
             leaderboardCardsElements.forEach(card => {
                 if (card.dataset.player.includes(query)) {
-                    card.style.display = "flex"; // leaderboard cards use flex
+                    card.style.display = "flex";
                 } else {
                     card.style.display = "none";
                 }
@@ -573,7 +623,6 @@ btnLevels.addEventListener("click", () => {
     levelsContainer.classList.remove("hidden-section");
     leaderboardContainer.classList.add("hidden-section");
     
-    // Update Search Context to Levels
     searchInput.placeholder = "Search level by name...";
     searchInput.value = ""; 
     searchInput.dispatchEvent(new Event('input')); 
@@ -586,7 +635,6 @@ btnLeaderboard.addEventListener("click", () => {
     leaderboardContainer.classList.remove("hidden-section");
     levelsContainer.classList.add("hidden-section");
     
-    // Update Search Context to Players
     searchInput.placeholder = "Search player by name...";
     searchInput.value = ""; 
     searchInput.dispatchEvent(new Event('input')); 
