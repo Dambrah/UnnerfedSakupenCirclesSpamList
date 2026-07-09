@@ -308,7 +308,7 @@ body {
     background: rgba(255, 207, 64, 0.15); border: 1px solid rgba(255, 207, 64, 0.3);
 }
 
-/* LIST CARDS (Leaderboard & Packs) */
+/* LIST CARDS (Leaderboard & Packs & Credits) */
 .list-card {
     width: min(900px, 95vw);
     background: linear-gradient(135deg, var(--card-bg) 0%, var(--card-grad-2) 100%);
@@ -329,6 +329,16 @@ body {
 .list-highlight { font-size: 20px; font-weight: 800; color: #ffcf40; }
 .list-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); margin-top: 5px; }
 .list-items { font-size: 14px; color: var(--text-dim); line-height: 1.5; }
+
+/* CREDITS SPECIFIC */
+.credits-card {
+    align-items: center;
+    text-align: center;
+    padding: 50px 20px;
+}
+.credits-title { font-size: 32px; margin-bottom: 5px; }
+.credits-author { font-size: 18px; color: var(--text-dim); }
+.credits-author strong { color: var(--text-main); font-weight: 800; }
 
 /* PACK VIEW INTERFACE */
 .pack-view-header {
@@ -370,7 +380,7 @@ body {
     .list-highlight { font-size: 16px; }
     .left { padding: 12px; }
     .level-points { font-size: 12px; padding: 4px 10px; }
-    .tab-btn { padding: 10px 15px; font-size: 14px; }
+    .tab-btn { padding: 10px 15px; font-size: 14px; flex-basis: 45%; }
     .pack-view-header { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 </style>
@@ -404,12 +414,14 @@ body {
         <button class="tab-btn active" id="btn-levels">Levels</button>
         <button class="tab-btn" id="btn-leaderboard">Leaderboard</button>
         <button class="tab-btn" id="btn-packs">Packs</button>
+        <button class="tab-btn" id="btn-credits">Credits</button>
     </div>
 </div>
 
 <div class="container" id="levels-container"></div>
 <div class="container hidden-section" id="leaderboard-container"></div>
 
+<!-- Master Packs Container -->
 <div class="container hidden-section" id="packs-container">
     <div id="packs-list-container" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;"></div>
     
@@ -419,6 +431,14 @@ body {
             <h2 class="pack-view-title" id="pack-view-title">Pack Name</h2>
         </div>
         <div class="pack-levels-wrapper" id="pack-levels-wrapper"></div>
+    </div>
+</div>
+
+<!-- Credits Container -->
+<div class="container hidden-section" id="credits-container">
+    <div class="list-card credits-card">
+        <h2 class="list-title credits-title">Credits</h2>
+        <p class="credits-author">Created by <strong>Myszon12.</strong></p>
     </div>
 </div>
 
@@ -453,10 +473,13 @@ themeToggle.addEventListener("click", () => {
 const btnLevels = document.getElementById("btn-levels");
 const btnLeaderboard = document.getElementById("btn-leaderboard");
 const btnPacks = document.getElementById("btn-packs");
+const btnCredits = document.getElementById("btn-credits");
 
 const levelsContainer = document.getElementById("levels-container");
 const leaderboardContainer = document.getElementById("leaderboard-container");
 const packsContainer = document.getElementById("packs-container");
+const creditsContainer = document.getElementById("credits-container");
+
 const packsListContainer = document.getElementById("packs-list-container");
 const packViewContainer = document.getElementById("pack-view-container");
 const packLevelsWrapper = document.getElementById("pack-levels-wrapper");
@@ -471,7 +494,7 @@ let packCardsElements = [];
 let currentPackLevelElements = []; 
 
 const globalLevelsMap = new Map();
-const levelToPacksMap = new Map(); // Maps level names -> Array of pack names
+const levelToPacksMap = new Map();
 
 // 🛠️ HELPER FUNCTION: Youtube Parser
 function parseYoutube(youtubeInput) {
@@ -683,12 +706,13 @@ searchInput.addEventListener("input", (e) => {
             currentPackLevelElements.forEach(card => card.style.display = card.dataset.name.includes(query) ? "flex" : "none");
         }
     }
+    // Search is inactive when Credits tab is active
 });
 
 // HANDLE TAB SWITCHING
 function switchTab(activeBtn, activeContainer, placeholder) {
-    [btnLevels, btnLeaderboard, btnPacks].forEach(btn => btn.classList.remove("active"));
-    [levelsContainer, leaderboardContainer, packsContainer].forEach(container => container.classList.add("hidden-section"));
+    [btnLevels, btnLeaderboard, btnPacks, btnCredits].forEach(btn => btn.classList.remove("active"));
+    [levelsContainer, leaderboardContainer, packsContainer, creditsContainer].forEach(container => container.classList.add("hidden-section"));
     
     activeBtn.classList.add("active");
     activeContainer.classList.remove("hidden-section");
@@ -706,6 +730,7 @@ function switchTab(activeBtn, activeContainer, placeholder) {
 btnLevels.addEventListener("click", () => switchTab(btnLevels, levelsContainer, "Search level by name..."));
 btnLeaderboard.addEventListener("click", () => switchTab(btnLeaderboard, leaderboardContainer, "Search player by name..."));
 btnPacks.addEventListener("click", () => switchTab(btnPacks, packsContainer, "Search pack by name..."));
+btnCredits.addEventListener("click", () => switchTab(btnCredits, creditsContainer, "No search in credits..."));
 
 </script>
 </body>
