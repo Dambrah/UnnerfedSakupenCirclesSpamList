@@ -43,19 +43,11 @@ body {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-/* INTEGRATED SEARCH BAR */
 .nav-search {
     flex-grow: 1;
     max-width: 400px;
     position: relative;
     transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.nav-search.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(0.95);
-    position: absolute; 
 }
 
 #search-input {
@@ -73,10 +65,7 @@ body {
     transition: all 0.3s ease;
 }
 
-#search-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
+#search-input::placeholder { color: rgba(255, 255, 255, 0.4); }
 #search-input:focus {
     background: rgba(255, 255, 255, 0.1);
     border-color: #fff;
@@ -91,15 +80,10 @@ body {
     width: 18px;
     height: 18px;
     color: rgba(255, 255, 255, 0.4);
-    transition: color 0.3s ease;
     pointer-events: none;
 }
+#search-input:focus + .search-icon { color: white; }
 
-#search-input:focus + .search-icon {
-    color: white;
-}
-
-/* DISCORD BUTTON */
 .discord-btn {
     display: flex;
     align-items: center;
@@ -115,18 +99,12 @@ body {
     transition: all 0.3s ease;
     border: none;
 }
-
 .discord-btn:hover {
     background: #4752C4;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
 }
-
-.discord-btn svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-}
+.discord-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
 /* NAVIGATION TABS */
 .tabs-container {
@@ -135,13 +113,12 @@ body {
     justify-content: center;
     padding-top: 25px;
 }
-
 .tabs {
     display: flex;
     gap: 10px;
     width: min(900px, 95vw);
+    flex-wrap: wrap;
 }
-
 .tab-btn {
     padding: 12px 24px;
     background: #0a0a0a;
@@ -153,12 +130,10 @@ body {
     font-weight: 800;
     font-size: 16px;
     transition: all 0.3s ease;
+    flex: 1;
+    text-align: center;
 }
-
-.tab-btn:hover {
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
+.tab-btn:hover { border-color: rgba(255, 255, 255, 0.5); }
 .tab-btn.active {
     background: white;
     color: black;
@@ -166,7 +141,7 @@ body {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* CONTAINER */
+/* CONTAINERS */
 .container {
     width: 100%;
     display: flex;
@@ -177,7 +152,7 @@ body {
     box-sizing: border-box;
 }
 
-/* CARD (LEVELS) */
+/* CARDS (LEVELS) */
 .card {
     width: min(900px, 95vw);
     height: 220px;
@@ -189,14 +164,12 @@ body {
     position: relative;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-
 .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* LEFT PANEL (BLACK SCREEN WITH ALL TEXT INFO) */
 .left {
     width: 35%;
     height: 100%;
@@ -209,8 +182,6 @@ body {
     z-index: 2;
     border-right: 2px solid rgba(255, 255, 255, 0.05);
 }
-
-/* RIGHT PANEL (YOUTUBE VIDEO THUMBNAIL) */
 .right {
     width: 65%;
     height: 100%;
@@ -218,19 +189,14 @@ body {
     cursor: pointer;
     background: #000;
 }
-
 .right img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: opacity 0.3s;
 }
+.right:hover img { opacity: 0.6; }
 
-.right:hover img {
-    opacity: 0.6;
-}
-
-/* PLAY BUTTON OVERLAY */
 .play-button {
     position: absolute;
     top: 50%;
@@ -243,10 +209,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     pointer-events: none;
 }
-
 .play-button::after {
     content: "";
     display: block;
@@ -255,53 +220,23 @@ body {
     border-color: transparent transparent transparent white;
     margin-left: 6px;
 }
-
 .right:hover .play-button {
     background-color: #ff0000;
     transform: translate(-50%, -50%) scale(1.15);
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
 }
 
-/* TEXTS INSIDE BLACK PANEL */
-.place {
-    font-size: 24px;
-    font-weight: 800;
-    color: white;
-    margin-bottom: 4px;
-}
-
-.verifier {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #aaa;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.sub {
-    font-size: 12px;
-    color: #888;
-    line-height: 1.4;
-}
-
+.place { font-size: 24px; font-weight: 800; color: white; margin-bottom: 4px; }
+.verifier { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; font-weight: 700; margin-bottom: 8px; }
+.sub { font-size: 12px; color: #888; line-height: 1.4; }
 .level-points {
-    font-size: 15px;
-    font-weight: 800;
-    color: #ffcf40;
-    padding: 6px 14px;
-    border-radius: 8px;
-    display: inline-block;
-    width: max-content;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    background: rgba(255, 207, 64, 0.15);
-    border: 1px solid rgba(255, 207, 64, 0.3);
-    box-shadow: 0 0 10px rgba(255, 207, 64, 0.1);
+    font-size: 15px; font-weight: 800; color: #ffcf40;
+    padding: 6px 14px; border-radius: 8px; display: inline-block;
+    width: max-content; text-transform: uppercase; letter-spacing: 1px;
+    background: rgba(255, 207, 64, 0.15); border: 1px solid rgba(255, 207, 64, 0.3);
 }
 
-/* LEADERBOARD ELEMENT STYLES */
-.leaderboard-card {
+/* LEADERBOARD & PACKS LIST CARDS */
+.list-card {
     width: min(900px, 95vw);
     background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -311,85 +246,72 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
-
-.leaderboard-card:hover {
+.list-card:hover {
     transform: translateY(-2px);
     border-color: rgba(255, 255, 255, 0.3);
 }
+.pack-card { cursor: pointer; }
+.pack-card:hover {
+    border-color: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
 
-.leaderboard-header {
+.list-header { display: flex; justify-content: space-between; align-items: center; }
+.list-title { font-size: 22px; font-weight: 800; }
+.list-highlight { font-size: 20px; font-weight: 800; color: #ffcf40; }
+.list-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 5px; }
+.list-items { font-size: 14px; color: #ccc; line-height: 1.5; }
+
+/* PACK VIEW INTERFACE */
+.pack-view-header {
+    width: min(900px, 95vw);
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 20px;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 10px;
+}
+.back-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+.back-btn:hover { background: white; color: black; }
+.pack-view-title { font-size: 22px; font-weight: 800; margin: 0; }
+.pack-levels-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
 }
 
-.player-name {
-    font-size: 22px;
-    font-weight: 800;
-}
+.hidden-section { display: none !important; }
 
-.player-points {
-    font-size: 20px;
-    font-weight: 800;
-    color: #ffcf40;
-    text-shadow: 0 0 10px rgba(255, 207, 64, 0.3);
-}
-
-.beaten-title {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #888;
-    margin-top: 5px;
-}
-
-.beaten-list {
-    font-size: 14px;
-    color: #ccc;
-    line-height: 1.5;
-}
-
-/* UTILITY CLASSES */
-.hidden-section {
-    display: none !important;
-}
-
-/* 📱 MOBILE RESPONSIVENESS */
+/* MOBILE RESPONSIVENESS */
 @media (max-width: 768px){
-    .navbar {
-        flex-direction: row;
-    }
-    .nav-search {
-        order: 3;
-        max-width: 100%;
-        width: 100%;
-        margin-top: 10px;
-    }
-    .nav-search.hidden {
-        display: none; 
-    }
-    .card {
-        height: 200px;
-    }
-    .nav-title {
-        font-size: 20px;
-    }
+    .navbar { flex-direction: row; }
+    .nav-search { order: 3; max-width: 100%; margin-top: 10px; }
+    .card { height: 200px; }
 }
-
 @media (max-width: 480px){
-    .card {
-        height: 180px;
-    }
+    .card { height: 180px; }
     .place { font-size: 18px; }
-    .player-name { font-size: 18px; }
-    .player-points { font-size: 16px; }
+    .list-title { font-size: 18px; }
+    .list-highlight { font-size: 16px; }
     .left { padding: 12px; }
-    .level-points {
-        font-size: 12px;
-        padding: 4px 10px;
-    }
+    .level-points { font-size: 12px; padding: 4px 10px; }
+    .tab-btn { padding: 10px 15px; font-size: 14px; }
+    .pack-view-header { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 </style>
 </head>
@@ -418,227 +340,271 @@ body {
     <div class="tabs">
         <button class="tab-btn active" id="btn-levels">Levels</button>
         <button class="tab-btn" id="btn-leaderboard">Leaderboard</button>
+        <button class="tab-btn" id="btn-packs">Packs</button>
     </div>
 </div>
 
 <div class="container" id="levels-container"></div>
 <div class="container hidden-section" id="leaderboard-container"></div>
 
+<div class="container hidden-section" id="packs-container">
+    <div id="packs-list-container" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;"></div>
+    
+    <div id="pack-view-container" class="hidden-section" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+        <div class="pack-view-header">
+            <button class="back-btn" id="back-to-packs-btn">⬅ Back to Packs</button>
+            <h2 class="pack-view-title" id="pack-view-title">Pack Name</h2>
+        </div>
+        <div class="pack-levels-wrapper" id="pack-levels-wrapper"></div>
+    </div>
+</div>
+
 <script>
+// UI Elements
 const btnLevels = document.getElementById("btn-levels");
 const btnLeaderboard = document.getElementById("btn-leaderboard");
+const btnPacks = document.getElementById("btn-packs");
+
 const levelsContainer = document.getElementById("levels-container");
 const leaderboardContainer = document.getElementById("leaderboard-container");
-const navSearch = document.getElementById("nav-search");
+const packsContainer = document.getElementById("packs-container");
+const packsListContainer = document.getElementById("packs-list-container");
+const packViewContainer = document.getElementById("pack-view-container");
+const packLevelsWrapper = document.getElementById("pack-levels-wrapper");
+const backToPacksBtn = document.getElementById("back-to-packs-btn");
+const packViewTitle = document.getElementById("pack-view-title");
+
 const searchInput = document.getElementById("search-input");
 
-const levelCardsElements = []; 
-const leaderboardCardsElements = []; 
+// Arrays for searching & Reference Map
+let levelCardsElements = []; 
+let leaderboardCardsElements = []; 
+let packCardsElements = [];
+let currentPackLevelElements = []; // Store currently viewed pack levels for search
 
-// 🛠️ HELPER FUNCTION: Extracts clean Video ID and converts timestamps to pure seconds
+const globalLevelsMap = new Map();
+
+// 🛠️ HELPER FUNCTION: Youtube Parser
 function parseYoutube(youtubeInput) {
     if (!youtubeInput) return { id: "", start: 0 };
-    
     let videoId = youtubeInput.trim();
     let startSeconds = 0;
-
-    // Safety fallback: convert malformed query syntax (like ID&t=20s) to proper syntax
-    if (!videoId.includes('?') && videoId.includes('&')) {
-        videoId = videoId.replace('&', '?');
-    }
-
+    if (!videoId.includes('?') && videoId.includes('&')) videoId = videoId.replace('&', '?');
     try {
         const urlStr = videoId.startsWith('http') ? videoId : 'https://youtube.com/' + videoId;
         const url = new URL(urlStr);
-        
-        if (url.hostname.includes('youtu.be')) {
-            videoId = url.pathname.slice(1);
-        } else if (url.searchParams.has('v')) {
-            videoId = url.searchParams.get('v');
-        } else {
-            videoId = url.pathname.split('/').pop();
-        }
+        if (url.hostname.includes('youtu.be')) videoId = url.pathname.slice(1);
+        else if (url.searchParams.has('v')) videoId = url.searchParams.get('v');
+        else videoId = url.pathname.split('/').pop();
 
         const t = url.searchParams.get('t') || url.searchParams.get('start');
         if (t) {
-            if (/^\d+s?$/.test(t)) {
-                startSeconds = parseInt(t, 10);
-            } else {
-                const hMatch = t.match(/(\d+)h/);
-                const mMatch = t.match(/(\d+)m/);
-                const sMatch = t.match(/(\d+)s/);
+            if (/^\d+s?$/.test(t)) startSeconds = parseInt(t, 10);
+            else {
+                const hMatch = t.match(/(\d+)h/), mMatch = t.match(/(\d+)m/), sMatch = t.match(/(\d+)s/);
                 if (hMatch) startSeconds += parseInt(hMatch[1], 10) * 3600;
                 if (mMatch) startSeconds += parseInt(mMatch[1], 10) * 60;
                 if (sMatch) startSeconds += parseInt(sMatch[1], 10);
             }
         }
-    } catch (e) {
-        // Fallback option if URL parse breaks completely
-    }
-
+    } catch (e) {}
     return { id: videoId, start: startSeconds };
 }
 
-fetch("levels.json")
-.then(r => r.json())
-.then(data => {
+// 🛠️ HELPER FUNCTION: Generate Level Card DOM Element
+function createLevelCardElement(l) {
+    const exactPoints = l.points !== undefined ? l.points : 0;
+    const yt = parseYoutube(l.youtube);
 
-    // 1. RENDER LEVELS
-    data.sort((a,b) => a.place - b.place);
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.name = l.name.toLowerCase(); 
 
-    data.forEach(l => {
-        const exactPoints = l.points !== undefined ? l.points : 0;
-        
-        // Parse the video entry for clean ID and potential start timestamps
-        const yt = parseYoutube(l.youtube);
+    const left = document.createElement("div");
+    left.className = "left";
+    left.innerHTML = `
+        <div>
+            <div class="place">#${l.place} (${l.name})</div>
+            <div class="verifier">Verified by: ${l.verifier}</div>
+            <div class="sub">by ${l.author}<br>id: ${l.id}</div>
+        </div>
+        <div class="level-points">+${exactPoints} PTS</div>
+    `;
 
-        const card = document.createElement("div");
-        card.className = "card";
-        card.dataset.name = l.name.toLowerCase(); 
+    const right = document.createElement("div");
+    right.className = "right";
+    right.innerHTML = `
+        <img src="https://img.youtube.com/vi/${yt.id}/hqdefault.jpg" loading="lazy" alt="YouTube Thumbnail">
+        <div class="play-button"></div>
+    `;
 
-        const left = document.createElement("div");
-        left.className = "left";
-        
-        left.innerHTML = `
-            <div>
-                <div class="place">#${l.place} (${l.name})</div>
-                <div class="verifier">Verified by: ${l.verifier}</div>
-                <div class="sub">by ${l.author}<br>id: ${l.id}</div>
-            </div>
-            <div class="level-points">+${exactPoints} PTS</div>
-        `;
-
-        const right = document.createElement("div");
-        right.className = "right";
-
-        // Uses clean ID to avoid broken imagery parameters
+    right.addEventListener("click", () => {
+        let embedUrl = `https://www.youtube.com/embed/${yt.id}?autoplay=1`;
+        if (yt.start > 0) embedUrl += `&start=${yt.start}`;
         right.innerHTML = `
-            <img src="https://img.youtube.com/vi/${yt.id}/hqdefault.jpg" loading="lazy" alt="YouTube Thumbnail">
-            <div class="play-button"></div>
-        `;
+            <iframe width="100%" height="100%" src="${embedUrl}" 
+                title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>`;
+    });
 
-        right.addEventListener("click", () => {
-            // Build the embedded player URL dynamically
-            let embedUrl = `https://www.youtube.com/embed/${yt.id}?autoplay=1`;
-            if (yt.start > 0) {
-                embedUrl += `&start=${yt.start}`;
-            }
+    card.appendChild(left);
+    card.appendChild(right);
+    return card;
+}
 
-            right.innerHTML = `
-                <iframe 
-                    width="100%" 
-                    height="100%" 
-                    src="${embedUrl}" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            `;
-        });
+// FETCH DATA CONCURRENTLY
+Promise.all([
+    fetch("levels.json").then(r => r.json()),
+    fetch("packs.json").then(r => r.json()).catch(() => []) // Returns empty array if file missing
+]).then(([levelsData, packsData]) => {
 
-        card.appendChild(left);
-        card.appendChild(right);
-
+    // 1. PROCESS LEVELS
+    levelsData.sort((a,b) => a.place - b.place);
+    
+    levelsData.forEach(l => {
+        globalLevelsMap.set(l.name.toLowerCase(), l); // Save to dictionary for Packs reference
+        const card = createLevelCardElement(l);
         levelsContainer.appendChild(card);
         levelCardsElements.push(card); 
     });
 
-    // 2. LEADERBOARD LOGIC AND RENDERING
+    // 2. PROCESS LEADERBOARD
     const leaderboardData = {};
-
-    data.forEach(l => {
+    levelsData.forEach(l => {
         const exactPoints = l.points !== undefined ? Number(l.points) : 0;
-        
         if (l.victors && Array.isArray(l.victors)) {
             l.victors.forEach(player => {
                 const trimmedPlayer = player.trim();
-                if (!leaderboardData[trimmedPlayer]) {
-                    leaderboardData[trimmedPlayer] = {
-                        points: 0,
-                        beaten: []
-                    };
-                }
+                if (!leaderboardData[trimmedPlayer]) leaderboardData[trimmedPlayer] = { points: 0, beaten: [] };
                 leaderboardData[trimmedPlayer].points += exactPoints;
                 leaderboardData[trimmedPlayer].beaten.push(l.name);
             });
         }
     });
 
-    const sortedPlayers = Object.keys(leaderboardData).map(name => ({
-        name: name,
-        points: leaderboardData[name].points,
-        beaten: leaderboardData[name].beaten
-    })).sort((a, b) => b.points - a.points);
+    const sortedPlayers = Object.keys(leaderboardData)
+        .map(name => ({ name, points: leaderboardData[name].points, beaten: leaderboardData[name].beaten }))
+        .sort((a, b) => b.points - a.points);
 
     sortedPlayers.forEach((p, index) => {
         const lCard = document.createElement("div");
-        lCard.className = "leaderboard-card";
+        lCard.className = "list-card";
         lCard.dataset.player = p.name.toLowerCase(); 
-
         lCard.innerHTML = `
-            <div class="leaderboard-header">
-                <div class="player-name">#${index + 1} ${p.name}</div>
-                <div class="player-points">${p.points} pts</div>
+            <div class="list-header">
+                <div class="list-title">#${index + 1} ${p.name}</div>
+                <div class="list-highlight">${p.points} pts</div>
             </div>
-            <div class="beaten-title">Completed levels:</div>
-            <div class="beaten-list">${p.beaten.join(", ")}</div>
+            <div class="list-subtitle">Completed levels:</div>
+            <div class="list-items">${p.beaten.join(", ")}</div>
         `;
-
         leaderboardContainer.appendChild(lCard);
         leaderboardCardsElements.push(lCard);
     });
 
-    // 3. UNIVERSAL SEARCH IMPLEMENTATION
-    searchInput.addEventListener("input", (e) => {
-        const query = e.target.value.toLowerCase();
+    // 3. PROCESS PACKS
+    packsData.forEach((pack) => {
+        // Validation: Only keep level names that actually exist in levels.json
+        const validLevels = pack.levels.filter(levelName => globalLevelsMap.has(levelName.toLowerCase()));
         
-        if (btnLevels.classList.contains("active")) {
-            levelCardsElements.forEach(card => {
-                if (card.dataset.name.includes(query)) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
+        // Skip pack if it has no valid levels
+        if (validLevels.length === 0) return;
+
+        const pCard = document.createElement("div");
+        pCard.className = "list-card pack-card";
+        pCard.dataset.pack = pack.name.toLowerCase(); 
+
+        pCard.innerHTML = `
+            <div class="list-header">
+                <div class="list-title">${pack.name}</div>
+                <div class="list-highlight">${validLevels.length} Levels</div>
+            </div>
+            <div class="list-subtitle">Click to view levels:</div>
+            <div class="list-items">${validLevels.join(", ")}</div>
+        `;
+
+        // Click Event: Open Pack View
+        pCard.addEventListener("click", () => {
+            packsListContainer.classList.add("hidden-section");
+            packViewContainer.classList.remove("hidden-section");
+            packViewTitle.innerText = pack.name;
+            
+            // Clear old levels from view
+            packLevelsWrapper.innerHTML = "";
+            currentPackLevelElements = [];
+
+            // Generate Level Cards for this pack
+            validLevels.forEach(levelName => {
+                const levelData = globalLevelsMap.get(levelName.toLowerCase());
+                const cardElement = createLevelCardElement(levelData);
+                packLevelsWrapper.appendChild(cardElement);
+                currentPackLevelElements.push(cardElement);
             });
-        } 
-        else {
-            leaderboardCardsElements.forEach(card => {
-                if (card.dataset.player.includes(query)) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        }
+
+            // Adjust search bar to search within the pack
+            searchInput.placeholder = `Search in ${pack.name}...`;
+            searchInput.value = "";
+        });
+
+        packsListContainer.appendChild(pCard);
+        packCardsElements.push(pCard);
     });
-
 });
 
-// 4. HANDLE TAB SWITCHING (Changes Context of Search Bar)
-btnLevels.addEventListener("click", () => {
-    btnLevels.classList.add("active");
-    btnLeaderboard.classList.remove("active");
-    
-    levelsContainer.classList.remove("hidden-section");
-    leaderboardContainer.classList.add("hidden-section");
-    
-    searchInput.placeholder = "Search level by name...";
-    searchInput.value = ""; 
+// "BACK TO PACKS" BUTTON LOGIC
+backToPacksBtn.addEventListener("click", () => {
+    packViewContainer.classList.add("hidden-section");
+    packsListContainer.classList.remove("hidden-section");
+    searchInput.placeholder = "Search pack by name...";
+    searchInput.value = "";
     searchInput.dispatchEvent(new Event('input')); 
 });
 
-btnLeaderboard.addEventListener("click", () => {
-    btnLeaderboard.classList.add("active");
-    btnLevels.classList.remove("active");
+
+// UNIVERSAL SEARCH IMPLEMENTATION
+searchInput.addEventListener("input", (e) => {
+    const query = e.target.value.toLowerCase();
     
-    leaderboardContainer.classList.remove("hidden-section");
-    levelsContainer.classList.add("hidden-section");
+    if (btnLevels.classList.contains("active")) {
+        levelCardsElements.forEach(card => card.style.display = card.dataset.name.includes(query) ? "flex" : "none");
+    } 
+    else if (btnLeaderboard.classList.contains("active")) {
+        leaderboardCardsElements.forEach(card => card.style.display = card.dataset.player.includes(query) ? "flex" : "none");
+    }
+    else if (btnPacks.classList.contains("active")) {
+        // Are we looking at the pack list or inside a specific pack?
+        if (!packsListContainer.classList.contains("hidden-section")) {
+            packCardsElements.forEach(card => card.style.display = card.dataset.pack.includes(query) ? "flex" : "none");
+        } else {
+            currentPackLevelElements.forEach(card => card.style.display = card.dataset.name.includes(query) ? "flex" : "none");
+        }
+    }
+});
+
+// HANDLE TAB SWITCHING
+function switchTab(activeBtn, activeContainer, placeholder) {
+    [btnLevels, btnLeaderboard, btnPacks].forEach(btn => btn.classList.remove("active"));
+    [levelsContainer, leaderboardContainer, packsContainer].forEach(container => container.classList.add("hidden-section"));
     
-    searchInput.placeholder = "Search player by name...";
+    activeBtn.classList.add("active");
+    activeContainer.classList.remove("hidden-section");
+    
+    // If switching to packs, reset to the pack list view automatically
+    if (activeBtn === btnPacks) {
+        packViewContainer.classList.add("hidden-section");
+        packsListContainer.classList.remove("hidden-section");
+    }
+
+    searchInput.placeholder = placeholder;
     searchInput.value = ""; 
     searchInput.dispatchEvent(new Event('input')); 
-});
+}
+
+btnLevels.addEventListener("click", () => switchTab(btnLevels, levelsContainer, "Search level by name..."));
+btnLeaderboard.addEventListener("click", () => switchTab(btnLeaderboard, leaderboardContainer, "Search player by name..."));
+btnPacks.addEventListener("click", () => switchTab(btnPacks, packsContainer, "Search pack by name..."));
+
 </script>
 </body>
 </html>
