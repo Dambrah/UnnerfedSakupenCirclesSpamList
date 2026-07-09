@@ -7,16 +7,60 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+/* ========================= */
+/* 🔥 THEME VARIABLES */
+/* ========================= */
+:root {
+    --bg-main: #000000;
+    --nav-bg: rgba(10, 10, 10, 0.7);
+    --text-main: #ffffff;
+    --text-dim: #aaaaaa;
+    --text-sub: #888888;
+    --border-color: rgba(255, 255, 255, 0.15);
+    --border-hover: rgba(255, 255, 255, 0.4);
+    --card-bg: #0a0a0a;
+    --card-grad-1: #050505;
+    --card-grad-2: #111111;
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --input-focus: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --theme-btn-bg: rgba(255, 255, 255, 0.1);
+    --tab-active-bg: #ffffff;
+    --tab-active-text: #000000;
+    --tab-border: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] {
+    --bg-main: #f4f4f5;
+    --nav-bg: rgba(255, 255, 255, 0.85);
+    --text-main: #18181b;
+    --text-dim: #52525b;
+    --text-sub: #71717a;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-hover: rgba(0, 0, 0, 0.3);
+    --card-bg: #ffffff;
+    --card-grad-1: #ffffff;
+    --card-grad-2: #f4f4f5;
+    --input-bg: rgba(0, 0, 0, 0.05);
+    --input-focus: rgba(0, 0, 0, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --theme-btn-bg: rgba(0, 0, 0, 0.05);
+    --tab-active-bg: #000000;
+    --tab-active-text: #ffffff;
+    --tab-border: rgba(0, 0, 0, 0.2);
+}
+
 body {
     margin: 0;
-    background: black;
+    background: var(--bg-main);
     font-family: 'Rubik', sans-serif;
-    color: white;
+    color: var(--text-main);
     overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ========================= */
-/* 🔥 PREMIUM NAVBAR */
+/* NAVBAR */
 /* ========================= */
 .navbar {
     display: flex;
@@ -24,25 +68,32 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px max(5vw, 20px);
-    background: rgba(10, 10, 10, 0.7);
+    background: var(--nav-bg);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 100;
     gap: 15px;
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-title {
     font-size: 24px;
     font-weight: 800;
-    color: white;
+    color: var(--text-main);
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
+.nav-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* SEARCH */
 .nav-search {
     flex-grow: 1;
     max-width: 400px;
@@ -57,19 +108,18 @@ body {
     font-family: 'Rubik', sans-serif;
     font-size: 15px;
     font-weight: 600;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: white;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
     border-radius: 30px; 
     outline: none;
     transition: all 0.3s ease;
 }
 
-#search-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+#search-input::placeholder { color: var(--text-dim); }
 #search-input:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #fff;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    background: var(--input-focus);
+    border-color: var(--border-hover);
 }
 
 .search-icon {
@@ -79,10 +129,27 @@ body {
     transform: translateY(-50%);
     width: 18px;
     height: 18px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-dim);
     pointer-events: none;
 }
-#search-input:focus + .search-icon { color: white; }
+#search-input:focus + .search-icon { color: var(--text-main); }
+
+/* BUTTONS */
+.theme-btn {
+    background: var(--theme-btn-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.theme-btn:hover { border-color: var(--border-hover); transform: scale(1.05); }
 
 .discord-btn {
     display: flex;
@@ -106,24 +173,19 @@ body {
 }
 .discord-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
-/* NAVIGATION TABS */
+/* TABS */
 .tabs-container {
     width: 100%;
     display: flex;
     justify-content: center;
     padding-top: 25px;
 }
-.tabs {
-    display: flex;
-    gap: 10px;
-    width: min(900px, 95vw);
-    flex-wrap: wrap;
-}
+.tabs { display: flex; gap: 10px; width: min(900px, 95vw); flex-wrap: wrap; }
 .tab-btn {
     padding: 12px 24px;
-    background: #0a0a0a;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    background: var(--card-bg);
+    border: 2px solid var(--tab-border);
+    color: var(--text-main);
     border-radius: 12px;
     cursor: pointer;
     font-family: 'Rubik', sans-serif;
@@ -133,12 +195,12 @@ body {
     flex: 1;
     text-align: center;
 }
-.tab-btn:hover { border-color: rgba(255, 255, 255, 0.5); }
+.tab-btn:hover { border-color: var(--border-hover); }
 .tab-btn.active {
-    background: white;
-    color: black;
-    border-color: white;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    background: var(--tab-active-bg);
+    color: var(--tab-active-text);
+    border-color: var(--tab-active-bg);
+    box-shadow: 0 0 15px var(--shadow-color);
 }
 
 /* CONTAINERS */
@@ -159,28 +221,28 @@ body {
     display: flex;
     border-radius: 18px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: #0a0a0a;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
     position: relative;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 30px var(--shadow-color);
+    border-color: var(--border-hover);
 }
 
 .left {
     width: 35%;
     height: 100%;
-    background: linear-gradient(135deg, #050505 0%, #111 100%);
+    background: linear-gradient(135deg, var(--card-grad-1) 0%, var(--card-grad-2) 100%);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
     box-sizing: border-box;
     z-index: 2;
-    border-right: 2px solid rgba(255, 255, 255, 0.05);
+    border-right: 2px solid var(--border-color);
 }
 .right {
     width: 65%;
@@ -220,14 +282,25 @@ body {
     border-color: transparent transparent transparent white;
     margin-left: 6px;
 }
-.right:hover .play-button {
-    background-color: #ff0000;
-    transform: translate(-50%, -50%) scale(1.15);
+.right:hover .play-button { background-color: #ff0000; transform: translate(-50%, -50%) scale(1.15); }
+
+.place { font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
+.verifier { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 700; margin-bottom: 8px; }
+.sub { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
+
+/* PACK BADGES */
+.pack-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.pack-badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    padding: 4px 8px;
+    border-radius: 6px;
+    color: var(--text-dim);
 }
 
-.place { font-size: 24px; font-weight: 800; color: white; margin-bottom: 4px; }
-.verifier { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; font-weight: 700; margin-bottom: 8px; }
-.sub { font-size: 12px; color: #888; line-height: 1.4; }
 .level-points {
     font-size: 15px; font-weight: 800; color: #ffcf40;
     padding: 6px 14px; border-radius: 8px; display: inline-block;
@@ -235,11 +308,11 @@ body {
     background: rgba(255, 207, 64, 0.15); border: 1px solid rgba(255, 207, 64, 0.3);
 }
 
-/* LEADERBOARD & PACKS LIST CARDS */
+/* LIST CARDS (Leaderboard & Packs) */
 .list-card {
     width: min(900px, 95vw);
-    background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--card-grad-2) 100%);
+    border: 1px solid var(--border-color);
     border-radius: 18px;
     padding: 20px;
     box-sizing: border-box;
@@ -248,21 +321,14 @@ body {
     gap: 10px;
     transition: transform 0.2s ease, border-color 0.2s ease;
 }
-.list-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.3);
-}
+.list-card:hover { transform: translateY(-2px); border-color: var(--border-hover); box-shadow: 0 5px 15px var(--shadow-color); }
 .pack-card { cursor: pointer; }
-.pack-card:hover {
-    border-color: white;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
 
 .list-header { display: flex; justify-content: space-between; align-items: center; }
-.list-title { font-size: 22px; font-weight: 800; }
+.list-title { font-size: 22px; font-weight: 800; color: var(--text-main); }
 .list-highlight { font-size: 20px; font-weight: 800; color: #ffcf40; }
-.list-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-top: 5px; }
-.list-items { font-size: 14px; color: #ccc; line-height: 1.5; }
+.list-subtitle { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-sub); margin-top: 5px; }
+.list-items { font-size: 14px; color: var(--text-dim); line-height: 1.5; }
 
 /* PACK VIEW INTERFACE */
 .pack-view-header {
@@ -271,13 +337,13 @@ body {
     align-items: center;
     gap: 20px;
     padding: 0 0 15px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 10px;
 }
 .back-btn {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
     padding: 10px 15px;
     border-radius: 8px;
     cursor: pointer;
@@ -285,15 +351,9 @@ body {
     font-weight: 700;
     transition: all 0.2s ease;
 }
-.back-btn:hover { background: white; color: black; }
-.pack-view-title { font-size: 22px; font-weight: 800; margin: 0; }
-.pack-levels-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-}
+.back-btn:hover { background: var(--tab-active-bg); color: var(--tab-active-text); }
+.pack-view-title { font-size: 22px; font-weight: 800; margin: 0; color: var(--text-main); }
+.pack-levels-wrapper { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; }
 
 .hidden-section { display: none !important; }
 
@@ -301,10 +361,10 @@ body {
 @media (max-width: 768px){
     .navbar { flex-direction: row; }
     .nav-search { order: 3; max-width: 100%; margin-top: 10px; }
-    .card { height: 200px; }
+    .card { height: 230px; }
 }
 @media (max-width: 480px){
-    .card { height: 180px; }
+    .card { height: 210px; }
     .place { font-size: 18px; }
     .list-title { font-size: 18px; }
     .list-highlight { font-size: 16px; }
@@ -328,12 +388,15 @@ body {
         </svg>
     </div>
 
-    <a href="https://discord.gg/vAr7Cyv83F" target="_blank" class="discord-btn">
-        <svg viewBox="0 0 127.14 96.36">
-            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c0,0,.04-.06.05-.09h0c2.69-27.42-2.73-51.49-18.95-72.06ZM42.63,65.22C38,65.22,34.15,61,34.15,55.9S37.9,46.58,42.63,46.58c4.76,0,8.56,4.31,8.48,9.32C51.11,61,47.41,65.22,42.63,65.22Zm41.88,0c-4.73,0-8.52-4.22-8.52-9.32s3.73-9.32,8.52-9.32c4.76,0,8.56,4.31,8.48,9.32C93,61,89.28,65.22,84.51,65.22Z"/>
-        </svg>
-        Join Discord
-    </a>
+    <div class="nav-actions">
+        <button class="theme-btn" id="theme-toggle">☀️</button>
+        <a href="https://discord.gg/vAr7Cyv83F" target="_blank" class="discord-btn">
+            <svg viewBox="0 0 127.14 96.36">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c0,0,.04-.06.05-.09h0c2.69-27.42-2.73-51.49-18.95-72.06ZM42.63,65.22C38,65.22,34.15,61,34.15,55.9S37.9,46.58,42.63,46.58c4.76,0,8.56,4.31,8.48,9.32C51.11,61,47.41,65.22,42.63,65.22Zm41.88,0c-4.73,0-8.52-4.22-8.52-9.32s3.73-9.32,8.52-9.32c4.76,0,8.56,4.31,8.48,9.32C93,61,89.28,65.22,84.51,65.22Z"/>
+            </svg>
+            Join Discord
+        </a>
+    </div>
 </nav>
 
 <div class="tabs-container">
@@ -360,7 +423,33 @@ body {
 </div>
 
 <script>
-// UI Elements
+// ==========================================
+// THEME TOGGLE LOGIC (Saved to Local Storage)
+// ==========================================
+const themeToggle = document.getElementById("theme-toggle");
+const currentTheme = localStorage.getItem("theme") || "dark";
+
+if (currentTheme === "light") {
+    document.body.setAttribute("data-theme", "light");
+    themeToggle.innerText = "🌙";
+}
+
+themeToggle.addEventListener("click", () => {
+    const isLight = document.body.getAttribute("data-theme") === "light";
+    if (isLight) {
+        document.body.removeAttribute("data-theme");
+        localStorage.setItem("theme", "dark");
+        themeToggle.innerText = "☀️";
+    } else {
+        document.body.setAttribute("data-theme", "light");
+        localStorage.setItem("theme", "light");
+        themeToggle.innerText = "🌙";
+    }
+});
+
+// ==========================================
+// CORE LOGIC
+// ==========================================
 const btnLevels = document.getElementById("btn-levels");
 const btnLeaderboard = document.getElementById("btn-leaderboard");
 const btnPacks = document.getElementById("btn-packs");
@@ -376,13 +465,13 @@ const packViewTitle = document.getElementById("pack-view-title");
 
 const searchInput = document.getElementById("search-input");
 
-// Arrays for searching & Reference Map
 let levelCardsElements = []; 
 let leaderboardCardsElements = []; 
 let packCardsElements = [];
-let currentPackLevelElements = []; // Store currently viewed pack levels for search
+let currentPackLevelElements = []; 
 
 const globalLevelsMap = new Map();
+const levelToPacksMap = new Map(); // Maps level names -> Array of pack names
 
 // 🛠️ HELPER FUNCTION: Youtube Parser
 function parseYoutube(youtubeInput) {
@@ -415,6 +504,17 @@ function parseYoutube(youtubeInput) {
 function createLevelCardElement(l) {
     const exactPoints = l.points !== undefined ? l.points : 0;
     const yt = parseYoutube(l.youtube);
+    
+    // Check if this level is in any packs
+    const associatedPacks = levelToPacksMap.get(l.name.toLowerCase()) || [];
+    let packBadgesHTML = "";
+    if (associatedPacks.length > 0) {
+        packBadgesHTML = `
+            <div class="pack-badges">
+                ${associatedPacks.map(packName => `<span class="pack-badge">${packName}</span>`).join("")}
+            </div>
+        `;
+    }
 
     const card = document.createElement("div");
     card.className = "card";
@@ -427,6 +527,7 @@ function createLevelCardElement(l) {
             <div class="place">#${l.place} (${l.name})</div>
             <div class="verifier">Verified by: ${l.verifier}</div>
             <div class="sub">by ${l.author}<br>id: ${l.id}</div>
+            ${packBadgesHTML}
         </div>
         <div class="level-points">+${exactPoints} PTS</div>
     `;
@@ -456,14 +557,23 @@ function createLevelCardElement(l) {
 // FETCH DATA CONCURRENTLY
 Promise.all([
     fetch("levels.json").then(r => r.json()),
-    fetch("packs.json").then(r => r.json()).catch(() => []) // Returns empty array if file missing
+    fetch("packs.json").then(r => r.json()).catch(() => []) 
 ]).then(([levelsData, packsData]) => {
+
+    // 0. MAP LEVELS TO PACKS BEFORE GENERATING CARDS
+    packsData.forEach(pack => {
+        pack.levels.forEach(levelName => {
+            const key = levelName.toLowerCase();
+            if (!levelToPacksMap.has(key)) levelToPacksMap.set(key, []);
+            levelToPacksMap.get(key).push(pack.name);
+        });
+    });
 
     // 1. PROCESS LEVELS
     levelsData.sort((a,b) => a.place - b.place);
     
     levelsData.forEach(l => {
-        globalLevelsMap.set(l.name.toLowerCase(), l); // Save to dictionary for Packs reference
+        globalLevelsMap.set(l.name.toLowerCase(), l); 
         const card = createLevelCardElement(l);
         levelsContainer.appendChild(card);
         levelCardsElements.push(card); 
@@ -505,10 +615,7 @@ Promise.all([
 
     // 3. PROCESS PACKS
     packsData.forEach((pack) => {
-        // Validation: Only keep level names that actually exist in levels.json
         const validLevels = pack.levels.filter(levelName => globalLevelsMap.has(levelName.toLowerCase()));
-        
-        // Skip pack if it has no valid levels
         if (validLevels.length === 0) return;
 
         const pCard = document.createElement("div");
@@ -530,11 +637,9 @@ Promise.all([
             packViewContainer.classList.remove("hidden-section");
             packViewTitle.innerText = pack.name;
             
-            // Clear old levels from view
             packLevelsWrapper.innerHTML = "";
             currentPackLevelElements = [];
 
-            // Generate Level Cards for this pack
             validLevels.forEach(levelName => {
                 const levelData = globalLevelsMap.get(levelName.toLowerCase());
                 const cardElement = createLevelCardElement(levelData);
@@ -542,7 +647,6 @@ Promise.all([
                 currentPackLevelElements.push(cardElement);
             });
 
-            // Adjust search bar to search within the pack
             searchInput.placeholder = `Search in ${pack.name}...`;
             searchInput.value = "";
         });
@@ -573,7 +677,6 @@ searchInput.addEventListener("input", (e) => {
         leaderboardCardsElements.forEach(card => card.style.display = card.dataset.player.includes(query) ? "flex" : "none");
     }
     else if (btnPacks.classList.contains("active")) {
-        // Are we looking at the pack list or inside a specific pack?
         if (!packsListContainer.classList.contains("hidden-section")) {
             packCardsElements.forEach(card => card.style.display = card.dataset.pack.includes(query) ? "flex" : "none");
         } else {
@@ -590,7 +693,6 @@ function switchTab(activeBtn, activeContainer, placeholder) {
     activeBtn.classList.add("active");
     activeContainer.classList.remove("hidden-section");
     
-    // If switching to packs, reset to the pack list view automatically
     if (activeBtn === btnPacks) {
         packViewContainer.classList.add("hidden-section");
         packsListContainer.classList.remove("hidden-section");
